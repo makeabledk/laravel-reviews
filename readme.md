@@ -3,7 +3,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/makeabledk/laravel-reviews.svg?style=flat-square)](https://packagist.org/packages/makeabledk/laravel-reviews)
 [![Build Status](https://img.shields.io/travis/makeabledk/laravel-reviews/master.svg?style=flat-square)](https://travis-ci.org/makeabledk/laravel-reviews)
-[![StyleCI](https://styleci.io/repos/117670716/shield?branch=master)](https://styleci.io/repos/117670716)
+[![StyleCI](https://styleci.io/repos/125869723/shield?branch=master)](https://styleci.io/repos/125869723)
 
 
 **IMPORTANT NOTICE** 

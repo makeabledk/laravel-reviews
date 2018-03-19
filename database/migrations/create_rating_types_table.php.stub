@@ -4,18 +4,18 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReviewsTable extends Migration
+class CreateRatingTypesTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('rating_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->morphs('reviewable');
-            $table->string('title')->nullable();
-            $table->text('body')->nullable();
+            $table->string('slug')->unique();
+            $table->string('name')->nullable();
+            $table->decimal('weight');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('rating_types');
     }
 }
