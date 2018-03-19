@@ -11,7 +11,7 @@ class ReviewTest extends TestCase
     use RefreshDatabase;
 
     /** @test **/
-    function it_works()
+    public function it_works()
     {
         Review::create(['reviewable_type' => 'test', 'reviewable_id' => 1]);
 
