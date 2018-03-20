@@ -14,11 +14,11 @@ class CreateRatingsTable extends Migration
         Schema::create('ratings', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('review_id');
-            $table->string('rating_type_slug');
+            $table->string('rating_category_slug');
             $table->timestamps();
 
             $table->foreign('review_id')->references('id')->on('reviews')->onDelete('restrict')->onUpdate('cascade');
-            $table->foreign('rating_type_slug')->references('slug')->on('rating_types')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('rating_category_slug')->references('slug')->on('rating_categories')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

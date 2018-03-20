@@ -2,10 +2,11 @@
 
 namespace Makeable\LaravelReviews\Tests;
 
-use App\User;
 use Illuminate\Database\Migrations\Migrator;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Makeable\LaravelReviews\ReviewServiceProvider;
+use Makeable\LaravelReviews\Tests\Stubs\Job;
+use Makeable\LaravelReviews\Tests\Stubs\User;
 
 class TestCase extends BaseTestCase
 {
@@ -31,10 +32,19 @@ class TestCase extends BaseTestCase
     }
 
     /**
+     * @return Job
+     */
+    protected function job()
+    {
+        return Job::create([]);
+    }
+
+    /**
+     * @param array $attributes
      * @return User
      */
-    protected function user()
+    protected function user($attributes = [])
     {
-        return factory(User::class)->create();
+        return User::create(factory(\App\User::class)->make($attributes)->getAttributes());
     }
 }

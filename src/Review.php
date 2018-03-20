@@ -18,4 +18,28 @@ class Review extends Model
     {
         return $this->hasMany(Rating::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function reviewable()
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function reviewee()
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function reviewer()
+    {
+        return $this->morphTo();
+    }
 }
