@@ -4,5 +4,4 @@ namespace Makeable\LaravelReviews;
 
 trait HasRatingThroughReviews
 {
-
 }
