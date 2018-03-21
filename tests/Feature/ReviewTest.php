@@ -23,13 +23,14 @@ class ReviewTest extends TestCase
         $this->assertEquals($reviewee->id, $review->reviewee->id);
         $this->assertEquals($reviewer->id, $review->reviewer->id);
     }
-
-    /** @test **/
-    public function a_review_has_a_accumulated_rating()
-    {
-//        $review->rating_score;
-//        $review->
-    }
+//
+//    /** @test **/
+//    function a_review_has_a_score()
+//    {
+//        $review = $this->reviewWithRatings();
+//
+//        $this->assertEquals(4, $review->score);
+//    }
 
 //    function a_review_consists_of_reviewer_reviewee_and_reviewable()
 }

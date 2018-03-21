@@ -2,10 +2,13 @@
 
 namespace Makeable\LaravelReviews;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
+    use SubSelecting;
+
     /**
      * @var array
      */
@@ -41,5 +44,26 @@ class Review extends Model
     public function reviewer()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeWithScore($query)
+    {
+        return $this->addSubSelect('score',
+            Rating::combinedScore()->whereRaw('ratings.review_id = reviews.id'),
+        $query);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getScoreAttribute()
+    {
+        return array_get($this->attributes, 'score',
+            Review::where('id', $this->id)->withScore()->firstOrFail()->score
+        );
     }
 }

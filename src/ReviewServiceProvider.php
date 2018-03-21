@@ -13,7 +13,7 @@ class ReviewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        $this->mergeConfigFrom(__DIR__.'/../config/laravel-event-store.php', 'laravel-event-store');
+        $this->mergeConfigFrom(__DIR__.'/../config/laravel-reviews.php', 'laravel-reviews');
 
         if (! class_exists('CreateReviewsTable')) {
             $this->publishes([

@@ -15,6 +15,7 @@ class CreateRatingsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('review_id');
             $table->string('rating_category_slug');
+            $table->decimal('value');
             $table->timestamps();
 
             $table->foreign('review_id')->references('id')->on('reviews')->onDelete('restrict')->onUpdate('cascade');
