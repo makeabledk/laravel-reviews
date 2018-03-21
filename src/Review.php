@@ -63,7 +63,7 @@ class Review extends Model
     public function getScoreAttribute()
     {
         return array_get($this->attributes, 'score',
-            Review::where('id', $this->id)->withScore()->firstOrFail()->score
+            self::where('id', $this->id)->withScore()->firstOrFail()->score
         );
     }
 }

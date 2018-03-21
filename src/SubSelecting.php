@@ -14,7 +14,7 @@ trait SubSelecting
      */
     protected function addSubSelect($column, $subQuery, $mainQuery)
     {
-        if($mainQuery->getQuery()->columns === null) {
+        if ($mainQuery->getQuery()->columns === null) {
             $mainQuery->select($mainQuery->getQuery()->from.'.*');
         }
 

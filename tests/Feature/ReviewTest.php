@@ -23,6 +23,7 @@ class ReviewTest extends TestCase
         $this->assertEquals($reviewee->id, $review->reviewee->id);
         $this->assertEquals($reviewer->id, $review->reviewer->id);
     }
+
 //
 //    /** @test **/
 //    function a_review_has_a_score()
