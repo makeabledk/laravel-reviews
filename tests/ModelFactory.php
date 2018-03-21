@@ -26,12 +26,13 @@ trait ModelFactory
             ];
         });
     }
+
 //
 //    protected function seed()
 //    {
-////        $this->ratingCategory('first');
-////        $this->ratingCategory('second');
-////        $this->ratingCategory('third');
+    ////        $this->ratingCategory('first');
+    ////        $this->ratingCategory('second');
+    ////        $this->ratingCategory('third');
 //    }
 
     /**
@@ -51,7 +52,7 @@ trait ModelFactory
     {
         return new Rating([
             'rating_category_slug' => $category instanceof RatingCategory ? $category->slug : $category,
-            'value' => $value
+            'value' => $value,
         ]);
     }
 
@@ -65,7 +66,7 @@ trait ModelFactory
         return RatingCategory::create([
             'slug' => ($slug = $slug ?: app(Generator::class)->slug),
             'name' => Str::title($slug),
-            'weight' => $weight
+            'weight' => $weight,
         ]);
     }
 
@@ -81,6 +82,7 @@ trait ModelFactory
 
         return tap($review)->save();
     }
+
 //
 //    /**
 //     * @return Review

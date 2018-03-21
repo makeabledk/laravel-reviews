@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'score_decimals' => 1
+    'score_decimals' => 1,
 ];
