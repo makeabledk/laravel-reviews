@@ -28,7 +28,7 @@ trait Reviewable
             Rating::combinedScore()
                 ->leftJoin('reviews', 'ratings.review_id', '=', 'reviews.id')
                 ->where('reviews.reviewable_type', $this->getMorphClass())
-                ->whereRaw('reviews.reviewable_id = '. $this->getTable().'.id'),
+                ->whereRaw('reviews.reviewable_id = '.$this->getTable().'.id'),
             $query);
     }
 }

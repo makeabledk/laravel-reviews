@@ -22,7 +22,7 @@ class ReviewTest extends TestCase
             // Ratings
             collect([
                 $this->rating(1, $this->ratingCategory(1)),
-                $this->rating(1, $this->ratingCategory(1))
+                $this->rating(1, $this->ratingCategory(1)),
             ])
         );
 
@@ -31,9 +31,8 @@ class ReviewTest extends TestCase
         $this->assertEquals($reviewer->id, $review->reviewer->id);
     }
 
-
     /** @test **/
-    function a_review_has_a_score()
+    public function a_review_has_a_score()
     {
         ($review = $this->review())->ratings()->saveMany([
             $this->rating(5, $this->ratingCategory(1)),
@@ -44,7 +43,7 @@ class ReviewTest extends TestCase
     }
 
     /** @test **/
-    function the_score_is_based_only_on_the_reviews_own_ratings()
+    public function the_score_is_based_only_on_the_reviews_own_ratings()
     {
         ($review = $this->review())->ratings()->saveMany([
             $this->rating(5, $this->ratingCategory(1)),
@@ -60,7 +59,7 @@ class ReviewTest extends TestCase
     }
 
     /** @test **/
-    function a_review_can_save_after_having_loaded_the_score()
+    public function a_review_can_save_after_having_loaded_the_score()
     {
         ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
 
