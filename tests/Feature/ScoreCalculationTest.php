@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Makeable\LaravelReviews\Rating;
 use Makeable\LaravelReviews\Tests\TestCase;
 
-class ScoreTest extends TestCase
+class ScoreCalculationTest extends TestCase
 {
     use RefreshDatabase;
 

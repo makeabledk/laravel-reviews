@@ -19,21 +19,13 @@ trait ModelFactory
     protected function registerFactories(Application $app)
     {
         $factory = $app->make(\Illuminate\Database\Eloquent\Factory::class);
-        $factory->define(Review::class, function ($faker) {
+        $factory->define(Review::class, function (Generator $faker) {
             return [
-                'title' => $faker->title,
+                'title' => $faker->sentence,
                 'body' => $faker->paragraph,
             ];
         });
     }
-
-//
-//    protected function seed()
-//    {
-    ////        $this->ratingCategory('first');
-    ////        $this->ratingCategory('second');
-    ////        $this->ratingCategory('third');
-//    }
 
     /**
      * @return Job

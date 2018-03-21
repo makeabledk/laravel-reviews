@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    use SubSelecting;
+    use HasScore,
+        HasSubSelects;
 
     /**
      * @var array
@@ -55,15 +56,5 @@ class Review extends Model
         return $this->addSubSelect('score',
             Rating::combinedScore()->whereRaw('ratings.review_id = reviews.id'),
         $query);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getScoreAttribute()
-    {
-        return array_get($this->attributes, 'score',
-            self::where('id', $this->id)->withScore()->firstOrFail()->score
-        );
     }
 }
