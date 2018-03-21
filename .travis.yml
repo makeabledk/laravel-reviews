@@ -16,12 +16,13 @@ cache:
     - $HOME/.composer/cache
 
 env:
-  - COMPOSER_FLAGS=""
-  - DB_HOST=127.0.0.1
-  - DB_DATABASE=laravel_reviews
-  - DB_USERNAME=travis
-  - DB_PASSWORD=
-  - DB_UNIX_SOCKET=~travis/.my.cnf
+  global:
+    - COMPOSER_FLAGS=""
+    - DB_HOST=127.0.0.1
+    - DB_DATABASE=laravel_reviews
+    - DB_USERNAME=travis
+    - DB_PASSWORD=
+    - DB_UNIX_SOCKET=~travis/.my.cnf
 
 before_script:
   - travis_retry composer self-update
