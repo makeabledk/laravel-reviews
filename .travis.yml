@@ -4,11 +4,12 @@ language: php
 
 php:
   - 7.1
-  - 7.2
+
+services:
+  - mysql
 
 before_install:
-  - sudo apt-get update
-  - travis_retry composer self-update
+  - mysql -e 'CREATE DATABASE laravel_reviews;'
 
 cache:
   directories:
@@ -17,6 +18,11 @@ cache:
 env:
   matrix:
     - COMPOSER_FLAGS=""
+    - DB_HOST=127.0.0.1
+    - DB_DATABASE=laravel_reviews
+    - DB_USERNAME=travis
+    - DB_PASSWORD=
+    - DB_UNIX_SOCKET=~travis/.my.cnf
 
 before_script:
   - travis_retry composer self-update
