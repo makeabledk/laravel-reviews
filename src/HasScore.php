@@ -4,7 +4,6 @@ namespace Makeable\LaravelReviews;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Support\Str;
 
 trait HasScore
 {
