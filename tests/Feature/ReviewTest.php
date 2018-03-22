@@ -3,6 +3,7 @@
 namespace Makeable\LaravelReviews\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Makeable\LaravelReviews\Review;
 use Makeable\LaravelReviews\Tests\TestCase;
 
@@ -75,5 +76,22 @@ class ReviewTest extends TestCase
         $review->save();
 
         $this->assertEquals('foo baz', $review->title);
+    }
+
+    /** @test **/
+    function the_score_is_only_lazy_loaded_the_first_time()
+    {
+        ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
+
+        $queryCount = 0;
+
+        DB::listen(function ($sql) use (&$queryCount) {
+            $queryCount++;
+        });
+
+        $review->score;
+        $this->assertEquals(1, $queryCount);
+        $review->score;
+        $this->assertEquals(1, $queryCount);
     }
 }

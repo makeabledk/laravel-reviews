@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    use HasScore;
+    use SubSelecting;
 
     /**
      * @var array
@@ -60,6 +60,6 @@ class Review extends Model
      */
     public function getScoreAttribute()
     {
-        return $this->getOrLoadScoreAttribute('score');
+        return (new ScoreInteraction($this))->getOrLoadScoreAttribute('score');
     }
 }

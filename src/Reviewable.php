@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait Reviewable
 {
-    use HasScore;
-
     /**
      * @return MorphMany
      */
@@ -23,7 +21,7 @@ trait Reviewable
      */
     public function scopeWithScore($query)
     {
-        return $this->addSubSelect('score', $this->selectScoreForRelatedReviews($this->reviews()), $query);
+        return (new ScoreInteraction($this))->subSelectScoreForRelatedReviews('score', $this->reviews(), $query);
     }
 
     /**
@@ -31,6 +29,6 @@ trait Reviewable
      */
     public function getScoreAttribute()
     {
-        return $this->getOrLoadScoreAttribute('score');
+        return (new ScoreInteraction($this))->getOrLoadScoreAttribute('score');
     }
 }

@@ -4,7 +4,7 @@ namespace Makeable\LaravelReviews;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait HasSubSelects
+trait SubSelecting
 {
     /**
      * @param $column

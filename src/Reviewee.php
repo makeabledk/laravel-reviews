@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 
 trait Reviewee
 {
-    use HasScore;
-
     /**
      * @param Review $review
      * @param Collection|array $ratings
@@ -41,7 +39,7 @@ trait Reviewee
      */
     public function scopeWithScore($query)
     {
-        return $this->addSubSelect('score', $this->selectScoreForRelatedReviews($this->reviews()), $query);
+        return (new ScoreInteraction($this))->subSelectScoreForRelatedReviews('score', $this->reviews(), $query);
     }
 
     /**
@@ -49,6 +47,6 @@ trait Reviewee
      */
     public function getScoreAttribute()
     {
-        return $this->getOrLoadScoreAttribute('score');
+        return (new ScoreInteraction($this))->getOrLoadScoreAttribute('score');
     }
 }

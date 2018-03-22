@@ -31,5 +31,6 @@ class ReviewServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //
     }
 }

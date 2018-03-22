@@ -10,7 +10,7 @@ class ReviewableTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test **/
+    /** @test * */
     public function a_reviewable_has_a_score()
     {
         ($review = $this->review())->ratings()->saveMany([
@@ -21,7 +21,7 @@ class ReviewableTest extends TestCase
         $this->assertEquals(4, $review->reviewable->score);
     }
 
-    /** @test **/
+    /** @test * */
     public function the_score_is_based_only_on_the_reviewables_own_ratings()
     {
         ($review = $this->review())->ratings()->saveMany([
@@ -31,11 +31,7 @@ class ReviewableTest extends TestCase
 
         ($anotherReview = $this->review())->ratings()->saveMany([
             $this->rating(1, $this->ratingCategory(100)),
-       ]);
-//
-//        dd(
-//            Job::withScore()->get()->toArray()
-//        );
+        ]);
 
         $this->assertEquals(4, $review->reviewable->score);
         $this->assertArraySubset([4, 1], Job::withScore()->pluck('score')->toArray());
