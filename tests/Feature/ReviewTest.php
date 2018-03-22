@@ -79,7 +79,7 @@ class ReviewTest extends TestCase
     }
 
     /** @test **/
-    function the_score_is_only_lazy_loaded_the_first_time()
+    public function the_score_is_only_lazy_loaded_the_first_time()
     {
         ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
 

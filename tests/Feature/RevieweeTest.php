@@ -3,8 +3,6 @@
 namespace Makeable\LaravelReviews\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Makeable\LaravelReviews\Review;
-use Makeable\LaravelReviews\Tests\Stubs\Job;
 use Makeable\LaravelReviews\Tests\Stubs\User;
 use Makeable\LaravelReviews\Tests\TestCase;
 

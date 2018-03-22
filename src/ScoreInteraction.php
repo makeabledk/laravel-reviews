@@ -33,6 +33,7 @@ class ScoreInteraction
             $scope = camel_case("with_$attribute");
             $this->model->$attribute = $score = $this->model->newQuery()->where($this->model->getKeyName(), $this->model->getKey())->$scope()->firstOrFail()->$attribute;
             $this->model->syncOriginalAttribute($attribute);
+
             return $score;
         });
     }
