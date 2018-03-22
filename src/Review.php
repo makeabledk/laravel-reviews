@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    use HasScore,
-        HasSubSelects;
+    use HasScore;
 
     /**
      * @var array
@@ -53,8 +52,14 @@ class Review extends Model
      */
     public function scopeWithScore($query)
     {
-        return $this->addSubSelect('score',
-            Rating::combinedScore()->whereRaw('ratings.review_id = reviews.id'),
-        $query);
+        return $this->addSubSelect('score', Rating::combinedScore()->whereRaw('ratings.review_id = reviews.id'), $query);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getScoreAttribute()
+    {
+        return $this->getOrLoadScoreAttribute('score');
     }
 }

@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait Reviewable
 {
-    use HasScore,
-        HasSubSelects;
+    use HasScore;
 
     /**
      * @return MorphMany
@@ -24,11 +23,14 @@ trait Reviewable
      */
     public function scopeWithScore($query)
     {
-        return $this->addSubSelect('score',
-            Rating::combinedScore()
-                ->leftJoin('reviews', 'ratings.review_id', '=', 'reviews.id')
-                ->where('reviews.reviewable_type', $this->getMorphClass())
-                ->whereRaw('reviews.reviewable_id = '.$this->getTable().'.id'),
-            $query);
+        return $this->addSubSelect('score', $this->selectScoreForRelatedReviews($this->reviews()), $query);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getScoreAttribute()
+    {
+        return $this->getOrLoadScoreAttribute('score');
     }
 }

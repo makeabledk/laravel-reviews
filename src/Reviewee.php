@@ -8,8 +8,7 @@ use Illuminate\Support\Collection;
 
 trait Reviewee
 {
-    use HasScore,
-        HasSubSelects;
+    use HasScore;
 
     /**
      * @param Review $review
@@ -42,11 +41,14 @@ trait Reviewee
      */
     public function scopeWithScore($query)
     {
-        return $this->addSubSelect('score',
-            Rating::combinedScore()
-                ->leftJoin('reviews', 'ratings.review_id', '=', 'reviews.id')
-                ->where('reviews.reviewee_type', $this->getMorphClass())
-                ->whereRaw('reviews.reviewee_id', $this->getKey()),
-            $query);
+        return $this->addSubSelect('score', $this->selectScoreForRelatedReviews($this->reviews()), $query);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getScoreAttribute()
+    {
+        return $this->getOrLoadScoreAttribute('score');
     }
 }

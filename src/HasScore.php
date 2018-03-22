@@ -3,25 +3,36 @@
 namespace Makeable\LaravelReviews;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Str;
 
 trait HasScore
 {
-    /**
-     * @param Builder $query
-     * @return Builder
-     */
-    abstract public function scopeWithScore($query);
+    use HasSubSelects;
 
     /**
      * @return mixed
      */
-    public function getScoreAttribute()
+    protected function getOrLoadScoreAttribute($attribute)
     {
         if (! array_key_exists('score', $this->attributes)) {
-            $this->attributes['score'] = $this->newQuery()->where('id', $this->getKey())->withScore()->firstOrFail()->score;
-            $this->syncOriginalAttribute('score');
+            $scope = camel_case("with_$attribute");
+            $this->attributes[$attribute] = $this->newQuery()->where($this->getKeyName(), $this->getKey())->$scope()->firstOrFail()->score;
+            $this->syncOriginalAttribute($attribute);
         }
 
         return $this->attributes['score'];
+    }
+
+    /**
+     * @param MorphMany $reviewsRelation
+     * @return Builder
+     */
+    protected function selectScoreForRelatedReviews($reviewsRelation)
+    {
+        return Rating::combinedScore()
+            ->leftJoin('reviews', 'ratings.review_id', '=', 'reviews.id')
+            ->where($reviewsRelation->getQualifiedMorphType(), $this->getMorphClass())
+            ->whereRaw($reviewsRelation->getQualifiedForeignKeyName().' = '.$this->getQualifiedKeyName());
     }
 }
