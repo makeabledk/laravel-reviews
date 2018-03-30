@@ -28,7 +28,7 @@ class RevieweeTest extends TestCase
     }
 
     /** @test **/
-    function associated_reviews_can_be_queried_through_reviewee()
+    public function associated_reviews_can_be_queried_through_reviewee()
     {
         ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
 
