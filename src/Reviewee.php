@@ -30,7 +30,7 @@ trait Reviewee
      */
     public function reviews()
     {
-        return $this->morphMany(Review::class, 'reviewee');
+        return $this->morphMany(Review::class, 'reviewee')->withScore();
     }
 
     /**

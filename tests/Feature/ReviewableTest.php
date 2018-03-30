@@ -36,4 +36,14 @@ class ReviewableTest extends TestCase
         $this->assertEquals(4, $review->reviewable->score);
         $this->assertArraySubset([4, 1], Job::withScore()->pluck('score')->toArray());
     }
+
+    /** @test **/
+    function it_eager_loads_score_on_reviews_relation()
+    {
+        ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
+
+        $raw = $review->reviewable->reviews->first()->toArray();
+
+        $this->assertEquals(5, $raw['score']);
+    }
 }

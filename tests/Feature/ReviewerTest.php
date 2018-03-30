@@ -26,4 +26,14 @@ class ReviewerTest extends TestCase
 
         $this->assertNull($review->reviewee->authored_score);
     }
+
+    /** @test **/
+    function it_eager_loads_score_authored_reviews_relation()
+    {
+        ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
+
+        $raw = $review->reviewer->authoredReviews->first()->toArray();
+
+        $this->assertEquals(5, $raw['score']);
+    }
 }

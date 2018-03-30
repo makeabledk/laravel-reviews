@@ -15,6 +15,13 @@ class Review extends Model
     protected $guarded = [];
 
     /**
+     * @var array
+     */
+    protected $casts = [
+        'score' => 'float'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function ratings()

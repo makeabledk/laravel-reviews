@@ -12,7 +12,7 @@ trait Reviewable
      */
     public function reviews()
     {
-        return $this->morphMany(Review::class, 'reviewable');
+        return $this->morphMany(Review::class, 'reviewable')->withScore();
     }
 
     /**
