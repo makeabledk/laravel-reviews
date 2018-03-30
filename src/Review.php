@@ -48,6 +48,18 @@ class Review extends Model
 
     /**
      * @param Builder $query
+     * @param string $name
+     * @param Model $model
+     * @return Builder
+     */
+    public function scopeWhereMorph($query, $name, $model)
+    {
+        return $query->where("{$name}_type", $model->getMorphClass())
+            ->where("{$name}_id", $model->getKey());
+    }
+
+    /**
+     * @param Builder $query
      * @return Builder
      */
     public function scopeWithScore($query)

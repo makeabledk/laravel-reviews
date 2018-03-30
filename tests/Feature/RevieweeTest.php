@@ -26,4 +26,14 @@ class RevieweeTest extends TestCase
 
         $this->assertNull($review->reviewer->score);
     }
+
+    /** @test **/
+    function associated_reviews_can_be_queried_through_reviewee()
+    {
+        ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
+
+        list($reviewee, $reviewable) = [$review->reviewee, $review->reviewable];
+
+        $this->assertEquals(1, $reviewee->reviews()->whereMorph('reviewable', $reviewable)->count());
+    }
 }
