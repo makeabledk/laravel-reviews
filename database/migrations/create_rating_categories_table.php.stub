@@ -16,6 +16,7 @@ class CreateRatingCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->string('name')->nullable();
             $table->decimal('weight');
+            $table->string('tag')->nullable();
             $table->timestamps();
         });
     }
