@@ -18,7 +18,7 @@ class Review extends Model
      * @var array
      */
     protected $casts = [
-        'score' => 'float'
+        'score' => 'float',
     ];
 
     /**

@@ -28,7 +28,7 @@ class ReviewerTest extends TestCase
     }
 
     /** @test **/
-    function it_eager_loads_score_authored_reviews_relation()
+    public function it_eager_loads_score_authored_reviews_relation()
     {
         ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
 
