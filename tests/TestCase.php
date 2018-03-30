@@ -4,7 +4,7 @@ namespace Makeable\LaravelReviews\Tests;
 
 use Illuminate\Database\Migrations\Migrator;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Makeable\LaravelReviews\ReviewServiceProvider;
+use Makeable\LaravelReviews\ReviewsServiceProvider;
 use Schema;
 
 class TestCase extends BaseTestCase
@@ -31,7 +31,7 @@ class TestCase extends BaseTestCase
         $app = require __DIR__.'/../vendor/laravel/laravel/bootstrap/app.php';
         $app->useEnvironmentPath(__DIR__.'/..');
         $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-        $app->register(ReviewServiceProvider::class);
+        $app->register(ReviewsServiceProvider::class);
         $app->afterResolving('migrator', function (Migrator $migrator) {
             $migrator->path(__DIR__.'/migrations/');
         });

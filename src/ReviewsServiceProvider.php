@@ -4,7 +4,7 @@ namespace Makeable\LaravelReviews;
 
 use Illuminate\Support\ServiceProvider;
 
-class ReviewServiceProvider extends ServiceProvider
+class ReviewsServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
