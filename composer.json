@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Makeable\\LaravelReviews\\LaravelReviewsServiceProvider"
+                "Makeable\\LaravelReviews\\ReviewsServiceProvider"
             ]
         }
     },
