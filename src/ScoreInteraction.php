@@ -46,10 +46,57 @@ class ScoreInteraction
      */
     public function subSelectScoreForRelatedReviews($name, $relation, $query)
     {
-        return $this->addSubSelect($name, Rating::combinedScore()
-            ->leftJoin('reviews', 'ratings.review_id', '=', 'reviews.id')
-            ->where($relation->getQualifiedMorphType(), $this->model->getMorphClass())
-            ->whereRaw($relation->getQualifiedForeignKeyName().' = '.$this->model->getQualifiedKeyName()),
-        $query);
+        return $this->addSubSelect($name,
+            $this->mergeAdditionalWheresFromRelation(
+                Rating::combinedScore()
+                    ->leftJoin('reviews', 'ratings.review_id', '=', 'reviews.id')
+                    ->where($relation->getQualifiedMorphType(), $this->model->getMorphClass())
+                    ->whereRaw($relation->getQualifiedForeignKeyName().' = '.$this->model->getQualifiedKeyName()),
+                $relation
+            ),
+            $query
+        );
+    }
+
+    /**
+     * @param Builder $query
+     * @param \Illuminate\Database\Eloquent\Relations\Relation $relation
+     * @return Builder
+     */
+    protected function mergeAdditionalWheresFromRelation($query, $relation)
+    {
+        // A regular MorphMany relation is expected
+        // to have exactly 3 rows in 'wheres'.
+        // We won't merge those to our query.
+        $expectedRelationWheres = 3;
+
+        return tap($query)->mergeWheres(
+            // Filter wheres
+            collect($relation->getBaseQuery()->wheres)
+                ->slice($expectedRelationWheres)
+                ->map(\Closure::fromCallable([$this, 'qualifyWhere']))
+                ->toArray(),
+
+            // Filter bindings
+            collect($relation->getBaseQuery()->getBindings())
+                ->slice(collect($relation->getBaseQuery()->wheres)
+                    ->slice(0, $expectedRelationWheres)
+                    ->filter(function ($where) {
+                        return array_key_exists('value', $where);
+                    })->count())
+                ->toArray()
+        );
+    }
+
+    /**
+     * @param array $wheres
+     * @return array
+     */
+    protected function qualifyWhere(array $where)
+    {
+        if (strpos($where['column'], '.') === false) {
+            $where['column'] = 'reviews.'.$where['column'];
+        }
+        return $where;
     }
 }

@@ -4,6 +4,8 @@ namespace Makeable\LaravelReviews\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Makeable\LaravelReviews\Rating;
+use Makeable\LaravelReviews\Review;
+use Makeable\LaravelReviews\Tests\Stubs\User;
 use Makeable\LaravelReviews\Tests\TestCase;
 
 class ScoreCalculationTest extends TestCase
@@ -62,5 +64,20 @@ class ScoreCalculationTest extends TestCase
         $this->assertEquals(4.667, Rating::combinedScore()->first()->score);
 
         config()->set('laravel-reviews.score_decimals', 1);
+    }
+
+    /** @test **/
+    public function the_reviews_on_which_the_score_is_calculated_can_be_constrained()
+    {
+        $review = $this->review();
+        $review->ratings()->save($this->rating(5, $this->ratingCategory(1)));
+
+        $this->assertEquals(5, User::withPublishedScore()->first()->score);
+
+        // Set created_at in future
+        $review->created_at = now()->addHour();
+        $review->save();
+
+        $this->assertNull(User::withPublishedScore()->first()->score);
     }
 }
