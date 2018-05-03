@@ -17,7 +17,7 @@ class Rating extends Model
      */
     public function review()
     {
-        return $this->belongsTo(Review::class);
+        return $this->belongsTo(get_class(app(Review::class)));
     }
 
     /**

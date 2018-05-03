@@ -10,13 +10,6 @@ use Schema;
 class TestCase extends BaseTestCase
 {
     use ModelFactory;
-//
-//    protected function setUp()
-//    {
-//        parent::setUp();
-//
-//        $this->seed();
-//    }
 
     /**
      * Creates the application.

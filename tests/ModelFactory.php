@@ -75,22 +75,6 @@ trait ModelFactory
         return tap($review)->save();
     }
 
-//
-//    /**
-//     * @return Review
-//     */
-//    protected function reviewWithRatings()
-//    {
-//        $review = $this->review();
-//        $review->ratings()->saveMany([
-//            $this->rating('first'),
-//            $this->rating('second'),
-//            $this->rating('third'),
-//        ]);
-//
-//        return $review;
-//    }
-
     /**
      * @param array $attributes
      * @return User

@@ -12,7 +12,7 @@ trait Reviewer
      */
     public function authoredReviews()
     {
-        return $this->morphMany(Review::class, 'reviewer')->withScore();
+        return $this->morphMany(get_class(app(Review::class)), 'reviewer')->withScore();
     }
 
     /**
