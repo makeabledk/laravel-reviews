@@ -23,7 +23,6 @@ class User extends \App\User
     public function scopeWithPublishedScore($query)
     {
         return (new ScoreInteraction($this))->subSelectScoreForRelatedReviews('score',
-            $this->reviews()->where('created_at', '<=', now())
-        , $query);
+            $this->reviews()->where('created_at', '<=', now()), $query);
     }
 }

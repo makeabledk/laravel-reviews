@@ -97,6 +97,7 @@ class ScoreInteraction
         if (strpos($where['column'], '.') === false) {
             $where['column'] = 'reviews.'.$where['column'];
         }
+
         return $where;
     }
 }
