@@ -15,8 +15,8 @@ class RevieweeTest extends TestCase
     {
         ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
 
-        $this->assertEquals(5, $review->reviewee->score);
-        $this->assertEquals(5, User::withScore()->where('id', $review->reviewee->id)->firstOrFail()->score);
+        $this->assertEquals(5, $review->reviewee->reviews_score);
+        $this->assertEquals(5, User::withReviewsScore()->where('id', $review->reviewee->id)->firstOrFail()->reviews_score);
     }
 
     /** @test * */
@@ -24,7 +24,7 @@ class RevieweeTest extends TestCase
     {
         ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
 
-        $this->assertNull($review->reviewer->score);
+        $this->assertNull($review->reviewer->reviews_score);
     }
 
     /** @test **/
@@ -45,5 +45,16 @@ class RevieweeTest extends TestCase
         $raw = $review->reviewee->reviews->first()->toArray();
 
         $this->assertEquals(5, $raw['score']);
+    }
+
+    /** @test **/
+    public function a_reviewee_has_a_with_reviews_count_scope()
+    {
+        ($review = $this->review())->ratings()->saveMany([
+            $this->rating(5, $this->ratingCategory(1)),
+            $this->rating(3, $this->ratingCategory(1)),
+        ]);
+
+        $this->assertEquals(1, $review->reviewee()->withReviewsCount()->first()->reviews_count);
     }
 }

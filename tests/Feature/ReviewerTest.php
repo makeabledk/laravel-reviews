@@ -11,12 +11,12 @@ class ReviewerTest extends TestCase
     use RefreshDatabase;
 
     /** @test * */
-    public function a_reviewer_has_an_authored_score()
+    public function a_reviewer_has_an_authored_reviews_score()
     {
         ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
 
-        $this->assertEquals(5, $review->reviewer->authored_score);
-        $this->assertEquals(5, User::withAuthoredScore()->where('id', $review->reviewer->id)->firstOrFail()->authored_score);
+        $this->assertEquals(5, $review->reviewer->authored_reviews_score);
+        $this->assertEquals(5, User::withAuthoredReviewsScore()->where('id', $review->reviewer->id)->firstOrFail()->authored_reviews_score);
     }
 
     /** @test * */
@@ -24,7 +24,7 @@ class ReviewerTest extends TestCase
     {
         ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
 
-        $this->assertNull($review->reviewee->authored_score);
+        $this->assertNull($review->reviewee->authored_reviews_score);
     }
 
     /** @test **/
@@ -35,5 +35,16 @@ class ReviewerTest extends TestCase
         $raw = $review->reviewer->authoredReviews->first()->toArray();
 
         $this->assertEquals(5, $raw['score']);
+    }
+
+    /** @test **/
+    public function a_reviewer_has_a_with_authored_reviews_count_scope()
+    {
+        ($review = $this->review())->ratings()->saveMany([
+            $this->rating(5, $this->ratingCategory(1)),
+            $this->rating(3, $this->ratingCategory(1)),
+        ]);
+
+        $this->assertEquals(1, $review->reviewer()->withAuthoredReviewsCount()->first()->authored_reviews_count);
     }
 }

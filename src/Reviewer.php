@@ -19,16 +19,25 @@ trait Reviewer
      * @param Builder $query
      * @return Builder
      */
-    public function scopeWithAuthoredScore($query)
+    public function scopeWithAuthoredReviewsCount($query)
     {
-        return (new ScoreInteraction($this))->subSelectScoreForRelatedReviews('authored_score', $this->authoredReviews(), $query);
+        return $query->withCount('authoredReviews');
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeWithAuthoredReviewsScore($query)
+    {
+        return (new ScoreInteraction($this))->subSelectScoreForRelatedReviews('authored_reviews_score', $this->authoredReviews(), $query);
     }
 
     /**
      * @return mixed
      */
-    public function getAuthoredScoreAttribute()
+    public function getAuthoredReviewsScoreAttribute()
     {
-        return (new ScoreInteraction($this))->getOrLoadScoreAttribute('authored_score');
+        return (new ScoreInteraction($this))->getOrLoadScoreAttribute('authored_reviews_score');
     }
 }

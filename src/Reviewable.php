@@ -19,16 +19,25 @@ trait Reviewable
      * @param Builder $query
      * @return Builder
      */
-    public function scopeWithScore($query)
+    public function scopeWithReviewsCount($query)
     {
-        return (new ScoreInteraction($this))->subSelectScoreForRelatedReviews('score', $this->reviews(), $query);
+        return $query->withCount('reviews');
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeWithReviewsScore($query)
+    {
+        return (new ScoreInteraction($this))->subSelectScoreForRelatedReviews('reviews_score', $this->reviews(), $query);
     }
 
     /**
      * @return mixed
      */
-    public function getScoreAttribute()
+    public function getReviewsScoreAttribute()
     {
-        return (new ScoreInteraction($this))->getOrLoadScoreAttribute('score');
+        return (new ScoreInteraction($this))->getOrLoadScoreAttribute('reviews_score');
     }
 }
