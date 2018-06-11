@@ -96,7 +96,7 @@ class ReviewTest extends TestCase
         $review->score;
         $this->assertEquals(1, $queryCount);
     }
-    
+
     /** @test **/
     public function ratings_and_category_can_be_eager_loaded()
     {
