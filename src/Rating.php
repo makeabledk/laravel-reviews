@@ -15,6 +15,14 @@ class Rating extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function category()
+    {
+        return $this->belongsTo(get_class(app(RatingCategory::class)), 'rating_category_slug', 'slug');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function review()
     {
         return $this->belongsTo(get_class(app(Review::class)));

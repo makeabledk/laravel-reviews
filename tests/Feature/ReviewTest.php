@@ -4,6 +4,8 @@ namespace Makeable\LaravelReviews\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use Makeable\LaravelReviews\Rating;
+use Makeable\LaravelReviews\RatingCategory;
 use Makeable\LaravelReviews\Review;
 use Makeable\LaravelReviews\Tests\TestCase;
 
@@ -93,5 +95,14 @@ class ReviewTest extends TestCase
         $this->assertEquals(1, $queryCount);
         $review->score;
         $this->assertEquals(1, $queryCount);
+    }
+    
+    /** @test **/
+    public function ratings_and_category_can_be_eager_loaded()
+    {
+        ($review = $this->review())->ratings()->save($this->rating(5, $this->ratingCategory(1)));
+
+        $this->assertInstanceOf(Rating::class, $review->ratings->first());
+        $this->assertInstanceOf(RatingCategory::class, $review->ratings->first()->category);
     }
 }
